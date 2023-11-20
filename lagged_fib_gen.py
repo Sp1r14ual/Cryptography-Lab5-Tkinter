@@ -16,6 +16,10 @@ def lagfibG(n, lag1=55, lag2=24, modulus=1, firstterms=None, acc=[]):
         return (lagfibG(n-lag1, firstterms=firstterms) + lagfibG(n-lag2, firstterms=firstterms)) % int(pow(2, modulus))
 
 
+def T(r=24, s=55, l=52):
+    return (2 ** max(r, s) - 1) * 2 ** l
+
+
 def launch(seq_length, fib_num, r, s):
     selection = [lagfibG(fib_num, r, s) for x in range(seq_length)]
 
@@ -37,3 +41,7 @@ def launch(seq_length, fib_num, r, s):
 
     analytics.writelines([top, result])
     analytics.close()
+
+    period = open("period.txt", "w")
+    period.write(str(T(r, s)))
+    period.close()
